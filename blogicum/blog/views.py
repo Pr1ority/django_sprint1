@@ -54,7 +54,7 @@ def index(request):
 def post_detail(request, id):
     try:
         post = next((post for post in posts if post['id'] == id), None)
-    except StopIteration: 
+    except StopIteration:
         raise Http404("Post does not exist")
     template_name = 'blog/detail.html'
     context = {'post': post}
