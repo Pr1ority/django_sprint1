@@ -17,7 +17,7 @@
         </li>
       </ul>         
       <p>
-        <pre>{{ post.text }}</pre>
+        {{ post.text|linebreaks|safe }}
       </p>          
     </article>                
   </div>

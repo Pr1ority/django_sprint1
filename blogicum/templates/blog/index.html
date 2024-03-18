@@ -6,8 +6,8 @@
   <div class="container py-5">
     <h1>Лента записей</h1>                        
     <hr>
+    {% for post in posts reversed %}
     <article>
-      {% for post in posts reversed %}
       <ul>
         <li>
           {{ post.location }}              
@@ -20,13 +20,13 @@
         </li>
       </ul>          
       <p>
-        <pre>{{ post.text|truncatewords:10 }}</pre>
+        {{ post.text|truncatewords:10|linebreaks|safe }}
       </p>
       <a href="{% url 'blog:post_detail' id=post.id %}">Читать полный текст</a>
+    </article> 
       {% if not forloop.last %}
-      <hr>
+        <hr>
       {% endif %}
-      {% endfor %}
-    </article>                
+      {% endfor %}               
   </div>
 {% endblock %}

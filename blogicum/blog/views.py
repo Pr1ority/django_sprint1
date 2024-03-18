@@ -44,7 +44,7 @@ posts = [
     },
 ]
 
-post_dict = {post['id']: post for post in posts}
+posts_lookup = {post['id']: post for post in posts}
 
 
 def index(request):
@@ -54,9 +54,9 @@ def index(request):
 
 
 def post_detail(request, id):
-    post = post_dict.get(id)
+    post = posts_lookup.get(id)
     if not post:
-        raise Http404("Post with id {id} does not exist")
+        raise Http404(f"Post with id {id} does not exist")
     template_name = 'blog/detail.html'
     context = {'post': post}
     return render(request, template_name, context)
