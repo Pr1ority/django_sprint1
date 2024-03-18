@@ -1,32 +1,32 @@
 {% extends "base.html" %}
 {% block title %}
-    Лента записей
+  Лента записей
 {% endblock %}
 {% block content %}
-      <div class="container py-5">
-        <h1>Лента записей</h1>                        
-        <hr>
-        <article>
-          <ul>
-            {% for post in posts reversed %}
-            <li>
-              {{ post.location }}              
-            </li>
-            <li>
-              {{ post.date }}
-            </li>
-            <li>
-            <a href="{% url 'blog:category_posts' category_slug=post.category %}"> {{ post.category }}</a>
-            </li>
-          </ul>          
-          <p>
-            {{ post.text|truncatewords:10 }}
-          </p>
-          <a href="{% url 'blog:post_detail' id=post.id %}">Читать полный текст</a>
-          {% if not forloop.last %}
-              <hr>
-          {% endif %}
-          {% endfor %}
-        </article>                
-      </div>
+  <div class="container py-5">
+    <h1>Лента записей</h1>                        
+    <hr>
+    <article>
+      {% for post in posts reversed %}
+      <ul>
+        <li>
+          {{ post.location }}              
+        </li>
+        <li>
+          {{ post.date }}
+        </li>
+        <li>
+          <a href="{% url 'blog:category_posts' category_slug=post.category %}"> {{ post.category }}</a>
+        </li>
+      </ul>          
+      <p>
+        <pre>{{ post.text|truncatewords:10 }}</pre>
+      </p>
+      <a href="{% url 'blog:post_detail' id=post.id %}">Читать полный текст</a>
+      {% if not forloop.last %}
+      <hr>
+      {% endif %}
+      {% endfor %}
+    </article>                
+  </div>
 {% endblock %}

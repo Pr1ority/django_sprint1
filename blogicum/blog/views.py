@@ -44,6 +44,8 @@ posts = [
     },
 ]
 
+post_dict = {post['id']: post for post in posts}
+
 
 def index(request):
     template_name = 'blog/index.html'
@@ -52,18 +54,17 @@ def index(request):
 
 
 def post_detail(request, id):
-    try:
-        post = next((post for post in posts if post['id'] == id), None)
-    except StopIteration:
-        raise Http404("Post does not exist")
+    post = post_dict.get(id)
+    if not post:
+        raise Http404("Post with id {id} does not exist")
     template_name = 'blog/detail.html'
     context = {'post': post}
     return render(request, template_name, context)
 
 
 def category_posts(request, category_slug):
-    category_posts = ([post for
-                       post in posts if post['category'] == category_slug])
+    category_posts = [post for
+                      post in posts if post['category'] == category_slug]
     template_name = 'blog/category.html'
     context = {'category_posts': category_posts,
                'category_slug': category_slug}
